@@ -1,0 +1,7 @@
+---
+#  manager
+ansible_host: 10.0.100.2
+ansible_user: vagrant
+ansible_python_interpreter: /usr/bin/python3
+
+dockerswarm_managermaster: true

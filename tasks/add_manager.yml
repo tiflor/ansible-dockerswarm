@@ -1,0 +1,16 @@
+---
+
+- debug: msg="{{  hostvars[dockerswarm_manager_hostname]['dockerswarm_manager_token']['stdout'] }}"
+
+- name: "join swarm as manager "
+  shell: |
+    docker swarm join \
+    --token {{ hostvars[dockerswarm_manager_hostname]['dockerswarm_manager_token']['stdout'] }} \
+    {{ hostvars[dockerswarm_manager_hostname]['ansible_host'] }}:{{ dockerswarm_port}}
+  become: YES
+  when:
+    - "docker_info.stdout.find('Swarm: inactive') != -1"
+    - dockerswarm_manager
+  tags:
+    - add_manager
+    - swarm_manager

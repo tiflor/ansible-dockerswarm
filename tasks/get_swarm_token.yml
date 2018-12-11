@@ -1,0 +1,25 @@
+---
+# get swarm token
+- name: "swarm manager token"
+  shell: docker swarm join-token -q manager
+  register: dockerswarm_manager_token
+  become: YES
+  tags:
+    - swarm_manager_master
+    - token
+
+#- name: register swarm_manager_token
+#  set_fact:
+#    swarm_manager_token: "{{ item }}"
+#  with_items: "{{ dockerswarm_manager_token.stdout }}"
+#  tags:
+#    - swarm_manager_master
+#    - token
+
+- name: "swarm worker token"
+  shell: docker swarm join-token -q worker
+  register: dockerswarm_worker_token
+  become: YES
+  tags:
+    - swarm_manager_master
+    - token

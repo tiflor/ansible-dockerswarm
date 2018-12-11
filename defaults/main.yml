@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-dockerswarm
+
+# dockerswarm control values
+dockerswarm_managermaster: false
+dockerswarm_manager: false
+dockerswarm_worker: false
+
+dockerswarm_port: 2377

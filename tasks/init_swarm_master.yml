@@ -1,0 +1,12 @@
+---
+# init swarm manager master
+
+- name: "init swarm manager master"
+  shell: docker swarm init --advertise-addr {{ ansible_host }} --listen-addr {{ ansible_host }}
+  become: YES
+  when:
+    - "docker_info.stdout.find('Swarm: inactive') != -1"
+    - dockerswarm_managermaster
+  tags:
+    - init
+    - swarm_manager_master

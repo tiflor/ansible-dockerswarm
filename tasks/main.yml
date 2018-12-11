@@ -1,0 +1,40 @@
+---
+# tasks file for ansible-dockerswarm
+
+- name: "gather docker info "
+  shell: docker info
+  register: docker_info
+  become: YES
+  changed_when: False
+  tags:
+    - default
+    - always
+
+- include_tasks: init_swarm_master.yml
+  when: dockerswarm_managermaster
+  tags:
+    - init
+    - swarm_manager_master
+
+- include_tasks: get_swarm_token.yml
+  when: dockerswarm_managermaster
+  tags:
+    - swarm_manager_master
+    - token
+    - ( dockerswarm_manager or dockerswarm_worker )
+
+- include_tasks: add_manager.yml
+  when:
+  - swarm_manager_master is undefined
+  - dockerswarm_manager
+  - dockerswarm_worker != true
+  tags:
+    - add_manager
+
+- include_tasks: add_worker.yml
+  when:
+  - swarm_manager_master is undefined
+  - dockerswarm_manager != true
+  - dockerswarm_worker
+  tags:
+    - add_worker

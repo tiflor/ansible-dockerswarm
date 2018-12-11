@@ -1,0 +1,9 @@
+[test_swarm:children]
+test_swarm_manager
+test_swarm_worker
+
+[test_swarm_manager]
+manager
+
+[test_swarm_worker]
+workernode-[1:2]
