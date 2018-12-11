@@ -56,4 +56,4 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies:
-#    - tiflor.ansible_docker
+    - tiflor.ansible_docker
