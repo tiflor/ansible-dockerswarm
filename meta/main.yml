@@ -1,7 +1,7 @@
 galaxy_info:
   author: Jörg Klems
   description: Role to install docker swarm
-  company:
+  company: none
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
