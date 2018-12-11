@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="{{  hostvars[dockerswarm_manager_hostname]['dockerswarm_manager_token']['stdout'] }}"
+#- debug: msg="{{  hostvars[dockerswarm_manager_hostname]['dockerswarm_manager_token']['stdout'] }}"
 
 - name: "join swarm as manager "
   shell: |
