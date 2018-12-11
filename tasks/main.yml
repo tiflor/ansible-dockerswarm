@@ -27,14 +27,14 @@
   when:
   - swarm_manager_master is undefined
   - dockerswarm_manager
-  - dockerswarm_worker != true
+  - not ockerswarm_worker
   tags:
     - add_manager
 
 - include_tasks: add_worker.yml
   when:
   - swarm_manager_master is undefined
-  - dockerswarm_manager != true
+  - not dockerswarm_manager
   - dockerswarm_worker
   tags:
     - add_worker
