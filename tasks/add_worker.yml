@@ -1,15 +1,18 @@
 ---
 
-#- debug: msg="{{ hostvars[dockerswarm_manager_hostname]['dockerswarm_worker_token']['stdout'] }}"
+- debug: msg="{{ hostvars[dockerswarm_manager_hostname]['swarm_facts']['swarm_facts']['JoinTokens']['Worker'] }}"
+  tags:
+    - never
+    - debug
 
-- name: "join swarm as worker "
-  shell: |
-    docker swarm join \
-    --token {{ hostvars[dockerswarm_manager_hostname]['dockerswarm_worker_token']['stdout'] }} \
-    {{ hostvars[dockerswarm_manager_hostname]['ansible_host'] }}:{{ dockerswarm_port }}
+- name: "join swarm as manager "
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ ansible_host }}"
+    join_token: "{{ hostvars[dockerswarm_manager_hostname]['swarm_facts']['swarm_facts']['JoinTokens']['Worker'] }}"
+    remote_addrs: "{{ hostvars[dockerswarm_manager_hostname]['ansible_host'] }}:{{ dockerswarm_port }}"
   become: YES
   when:
-    - "docker_info.stdout.find('Swarm: inactive') != -1"
     - dockerswarm_worker
   tags:
     - add_worker

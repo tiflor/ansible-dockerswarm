@@ -1,0 +1,19 @@
+---
+# prerequisites
+
+- name: Install pip
+  package:
+    name: python3-pip
+    state: present
+  become: yes
+  tags:
+    - default
+    - always
+
+- name: Install docker pip
+  pip:
+    name: docker
+  become: yes
+  tags:
+    - default
+    - always
